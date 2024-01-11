@@ -11,27 +11,27 @@ public class BankAccountTest {
 
     @BeforeEach
     public void init() {
-        this.account = new BankAccount();
+        this.account = new BankAccount(2);
     }
 
     @Test
     public void verifyDebitAndCreditInitializationToZero() {
-        assertEquals(0, account.getDebit());
-        assertEquals(0, account.getCredit());
+        assertEquals(0, account.getCredit(0));
+        assertEquals(0, account.getDebit(0));
     }
 
     @Test
     public void verifyCreditIncrementationWhenCreditingAccount() throws InvalidValueException {
         double creditValue = 1;
         account.credit(creditValue);
-        assertEquals(creditValue, account.getCredit());
+        assertEquals(creditValue, account.getCredit(0));
     }
 
     @Test
     public void verifyDebitIncrementationWhenDebitingAccount() throws InvalidValueException {
         double debitValue = 1;
         account.debit(debitValue);
-        assertEquals(debitValue, account.getDebit());
+        assertEquals(debitValue, account.getDebit(0));
     }
 
     @Test
@@ -71,5 +71,38 @@ public class BankAccountTest {
         assertEquals(creditValue - debitValue, account.computeBalance());
     }
 
+    @Test
+    public void verifyCreditAddedIntoCreditsHistoryWhenArrayNotFull() throws InvalidValueException  {
+        double creditValue = 1;
+        account.credit(creditValue);
+        assertEquals(creditValue, account.getCredit(0));
+    }
+
+    @Test
+    public void verifyDebitAddedIntoCreditsHistoryWhenArrayNotFull() throws InvalidValueException  {
+        double debitValue = 1;
+        account.debit(debitValue);
+        assertEquals(debitValue, account.getDebit(0));
+    }
+
+    @Test
+    public void verifyCreditAddedIntoCreditsHistoryWhenArrayFull() throws InvalidValueException  {
+        double creditValue = 1;
+        account.credit(creditValue);
+        account.credit(creditValue);
+        account.credit(creditValue);
+        assertEquals(creditValue * 3, account.getCredit(0));
+        assertEquals(0, account.getCredit(1));
+    }
+
+    @Test
+    public void verifyDebitAddedIntoCreditsHistoryWhenArrayFull() throws InvalidValueException  {
+        double debitValue = 1;
+        account.debit(debitValue);
+        account.debit(debitValue);
+        account.debit(debitValue);
+        assertEquals(debitValue * 3, account.getDebit(0));
+        assertEquals(0, account.getDebit(1));
+    }
 }
 
