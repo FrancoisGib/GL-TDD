@@ -18,4 +18,18 @@ public class BankAccountTest {
         assertEquals(0, account.getDebit());
         assertEquals(0, account.getCredit());
     }
+
+    @Test
+    public void verifyCreditIncrementationWhenCreditingAccount() {
+        double creditValue = 1;
+        account.credit(creditValue);
+        assertEquals(1, account.getCredit());
+    }
+
+    @Test
+    public void verifyDebitIncrementationWhenDebitingAccount() {
+        double debitValue = 1;
+        account.debit(debitValue);
+        assertEquals(1, account.getDebit());
+    }
 }
