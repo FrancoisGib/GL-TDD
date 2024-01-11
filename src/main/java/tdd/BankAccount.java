@@ -22,4 +22,8 @@ public class BankAccount {
             throw new InvalidValueException();
         return baseValue + addedValue;
     }
+
+    public double computeBalance() {
+        return this.credit - this.debit;
+    }
 }
