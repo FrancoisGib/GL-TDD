@@ -8,4 +8,12 @@ public class BankAccount {
 
     @Getter
     private double debit = 0;
+
+    public void credit(double creditValue) {
+        this.credit += creditValue;
+    }
+
+    public void debit(double debitValue) {
+        this.debit += debitValue;
+    }
 }
