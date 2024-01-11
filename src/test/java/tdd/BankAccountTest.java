@@ -24,14 +24,14 @@ public class BankAccountTest {
     public void verifyCreditIncrementationWhenCreditingAccount() throws InvalidValueException {
         double creditValue = 1;
         account.credit(creditValue);
-        assertEquals(1, account.getCredit());
+        assertEquals(creditValue, account.getCredit());
     }
 
     @Test
     public void verifyDebitIncrementationWhenDebitingAccount() throws InvalidValueException {
         double debitValue = 1;
         account.debit(debitValue);
-        assertEquals(1, account.getDebit());
+        assertEquals(debitValue, account.getDebit());
     }
 
     @Test
@@ -45,5 +45,31 @@ public class BankAccountTest {
         double debitValue = -1;
         assertThrows(InvalidValueException.class, () -> account.debit(debitValue));
     }
+
+    @Test
+    public void verifyBalanceRightValueWhenCreditingSeveralTimes() throws InvalidValueException {
+        double creditValue = 1;
+        account.credit(creditValue);
+        account.credit(creditValue);
+        assertEquals(creditValue * 2, account.computeBalance());
+    }
+
+    @Test
+    public void verifyBalanceRightValueWhenDebitingSeveralTimes() throws InvalidValueException {
+        double debitValue = 1;
+        account.debit(debitValue);
+        account.debit(debitValue);
+        assertEquals(0 - debitValue * 2, account.computeBalance());
+    }
+
+    @Test
+    public void verifyBalanceRightValueWhenCreditingAndDebitingSeveralTimes() throws InvalidValueException {
+        double creditValue = 1;
+        double debitValue = 1;
+        account.credit(creditValue);
+        account.debit(debitValue);
+        assertEquals(creditValue - debitValue, account.computeBalance());
+    }
+
 }
 
