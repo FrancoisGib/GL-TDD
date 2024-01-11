@@ -41,8 +41,20 @@ public class BankAccountTest {
     }
 
     @Test
+    public void verifyInvalidValueExceptionThrowsWhenCreditingNullValue() {
+        double creditValue = 0;
+        assertThrows(InvalidValueException.class, () -> account.credit(creditValue));
+    }
+
+    @Test
     public void verifyInvalidValueExceptionThrowsWhenDebitingNegativeValue() {
         double debitValue = -1;
+        assertThrows(InvalidValueException.class, () -> account.debit(debitValue));
+    }
+
+    @Test
+    public void verifyInvalidValueExceptionThrowsWhenDebitingNullValue() {
+        double debitValue = 0;
         assertThrows(InvalidValueException.class, () -> account.debit(debitValue));
     }
 
