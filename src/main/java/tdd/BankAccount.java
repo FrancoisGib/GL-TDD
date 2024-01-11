@@ -23,7 +23,7 @@ public class BankAccount {
     }
 
     private static double[] addValueInArray(double[] array, double addedValue) throws InvalidValueException {
-        if (addedValue < 0)
+        if (addedValue <= 0)
             throw new InvalidValueException();
         int index = findFirstZeroInArray(array);
         if (index != -1)
