@@ -1,6 +1,6 @@
 package tdd;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +15,18 @@ public class BankTest {
 
     @Test
     public void checkBankEmptyAtInitialization() {
-        assertSame(0, bank.getAccounts().size());
+        assertEquals(0, bank.getAccounts().size());
+    }
+
+    @Test
+    public void checkBankAccountAddedToAccountsWhenOpeningABankAccount() {
+        bank.openBankAccount();
+        assertEquals(1, bank.getAccounts().size());
+    }
+
+    @Test
+    public void checkSavingAccountAddedToAccountsWhenOpeningASavingAccount() {
+        bank.openSavingAccount();
+        assertEquals(1, bank.getAccounts().size());
     }
 }
