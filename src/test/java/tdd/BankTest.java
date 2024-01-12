@@ -26,7 +26,8 @@ public class BankTest {
 
     @Test
     public void checkSavingAccountAddedToAccountsWhenOpeningASavingAccount() {
-        bank.openSavingAccount();
+        double interestsRatio = 0.5;
+        bank.openSavingAccount(interestsRatio);
         assertEquals(1, bank.getAccounts().size());
     }
 }
