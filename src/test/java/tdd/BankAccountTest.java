@@ -11,13 +11,19 @@ public class BankAccountTest {
 
     @BeforeEach
     public void init() {
-        this.account = new BankAccount(2);
+        this.account = new BankAccount();
     }
 
     @Test
     public void verifyDebitAndCreditInitializationToZero() {
-        assertEquals(0, account.getCredit(0));
-        assertEquals(0, account.getDebit(0));
+        double sumCredits = 0;
+        for (double d : account.getCredits()) 
+            sumCredits += d;
+        double sumDebits = 0;
+        for (double d : account.getDebits())
+            sumDebits += d;
+        assertEquals(0, sumCredits);
+        assertEquals(0, sumDebits);
     }
 
     @Test
@@ -98,37 +104,17 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyCreditAddedIntoCreditsHistoryWhenArrayNotFull() throws InvalidValueException, LimitReachedException {
+    public void verifyCreditAddedIntoCreditsHistory() throws InvalidValueException, LimitReachedException {
         double creditValue = 1;
         account.credit(creditValue);
         assertEquals(creditValue, account.getCredit(0));
     }
 
     @Test
-    public void verifyDebitAddedIntoCreditsHistoryWhenArrayNotFull() throws InvalidValueException, LimitReachedException {
+    public void verifyDebitAddedIntoDebitsHistory() throws InvalidValueException, LimitReachedException {
         double debitValue = 1;
         account.debit(debitValue);
         assertEquals(debitValue, account.getDebit(0));
-    }
-
-    @Test
-    public void verifyCreditAddedIntoCreditsHistoryWhenArrayFull() throws InvalidValueException, LimitReachedException {
-        double creditValue = 1;
-        account.credit(creditValue);
-        account.credit(creditValue);
-        account.credit(creditValue);
-        assertEquals(creditValue * 3, account.getCredit(0));
-        assertEquals(0, account.getCredit(1));
-    }
-
-    @Test
-    public void verifyDebitAddedIntoCreditsHistoryWhenArrayFull() throws InvalidValueException, LimitReachedException {
-        double debitValue = 1;
-        account.debit(debitValue);
-        account.debit(debitValue);
-        account.debit(debitValue);
-        assertEquals(debitValue * 3, account.getDebit(0));
-        assertEquals(0, account.getDebit(1));
     }
 }
 
