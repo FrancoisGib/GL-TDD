@@ -1,6 +1,7 @@
 package tdd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,10 +22,9 @@ public class SavingAccountTest extends BankAccountTest {
     }
 
     @Test
-    public void checkDebitUndoneWhenDebitedValueSuperiorToBalance() throws InvalidValueException, LimitReachedException {
+    public void checkDebitSuperiorToBalanceExceptionThrownWhenDebitedValueSuperiorToBalance() throws InvalidValueException, LimitReachedException, DebitSuperiorToBalanceException {
         double debitedValue = 1;
-        account.debit(debitedValue);
-        assertEquals(0, account.getDebits().size());
+        assertThrows(DebitSuperiorToBalanceException.class, () -> account.debit(debitedValue));
     }
 
     @Override
