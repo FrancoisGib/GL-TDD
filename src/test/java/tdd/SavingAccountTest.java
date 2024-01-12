@@ -78,7 +78,8 @@ public class SavingAccountTest extends BankAccountTest {
     public void checkCreditAddedAfterTerm() throws Exception {
         double balance = 1;
         account.credit(balance);
-        account.term();
+        SavingAccount savingAccount = (SavingAccount)account;
+        savingAccount.term();
         assertEquals(interestsRatio * balance, account.getCredit(1));
     }
 }

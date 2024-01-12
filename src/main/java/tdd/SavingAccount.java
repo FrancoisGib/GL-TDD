@@ -17,5 +17,10 @@ public class SavingAccount extends BankAccount {
     private double computeInterests() {
         return this.computeBalance() * this.interestsRatio;
     }
+
+    public void term() throws InvalidValueException, LimitReachedException {
+        double newCredit = this.computeInterests();
+        this.credit(newCredit);
+    }
 }
 
