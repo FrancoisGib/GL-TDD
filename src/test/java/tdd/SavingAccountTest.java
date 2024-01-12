@@ -18,4 +18,11 @@ public class SavingAccountTest extends BankAccountTest {
     public void checkDebitsArrayEmptyAtInitialization() {
         assertEquals(0, account.getDebits().size());
     }
+
+    @Test
+    public void checkDebitUndoneWhenDebitedValueSuperiorToBalance() throws InvalidValueException, LimitReachedException {
+        double debitedValue = 1;
+        account.debit(debitedValue);
+        assertEquals(0, account.getDebits().size());
+    }
 }
