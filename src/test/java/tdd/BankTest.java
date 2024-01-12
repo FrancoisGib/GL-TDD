@@ -1,7 +1,6 @@
 package tdd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,46 +32,46 @@ public class BankTest {
     }
 
     @Test
-    public void checkBankAccountCreditedWhenCreditingABankAccount() {
+    public void checkBankAccountCreditedWhenCreditingABankAccount() throws Exception {
         bank.openBankAccount();
         this.checkAccountCreditedWhenCreditingAnAccountImplementation();
     }
 
     @Test
-    public void checkSavingAccountCreditedWhenCreditingASavingAccount() {
+    public void checkSavingAccountCreditedWhenCreditingASavingAccount() throws Exception {
         double interestsRatio = 0.5;
         bank.openSavingAccount(interestsRatio);
         this.checkAccountCreditedWhenCreditingAnAccountImplementation();
     }
 
-    private void checkAccountCreditedWhenCreditingAnAccountImplementation() {
+    private void checkAccountCreditedWhenCreditingAnAccountImplementation() throws Exception {
         BankAccount account = bank.getAccount(0);
         Double creditedValue = 1.;
         bank.creditAccount(account, creditedValue);
         Double credit = account.getCredits().get(0);
-        assertSame(creditedValue, credit);
+        assertEquals(creditedValue, credit);
     }
 
     @Test
-    public void checkBankAccountDebitedWhenDebitingABankAccount() {
+    public void checkBankAccountDebitedWhenDebitingABankAccount() throws Exception {
         bank.openBankAccount();
-        this.checkAccountCreditedWhenCreditingAnAccountImplementation();
+        this.checkAccountDebitedWhenDebitingAnAccountImplementation();
     }
 
     @Test
-    public void checkSavingAccountDebitedWhenDebitingASavingAccount() {
+    public void checkSavingAccountDebitedWhenDebitingASavingAccount() throws Exception {
         double interestsRatio = 0.5;
         bank.openSavingAccount(interestsRatio);
         BankAccount account = bank.getAccount(0);
         account.credit(1);
-        this.checkAccountCreditedWhenCreditingAnAccountImplementation();
+        this.checkAccountDebitedWhenDebitingAnAccountImplementation();
     }
 
-    private void checkAccountDebitedWhenDebitingAnAccountImplementation() {
+    private void checkAccountDebitedWhenDebitingAnAccountImplementation() throws Exception {
         BankAccount account = bank.getAccount(0);
         Double debitedValue = 1.;
         bank.debitAccount(account, debitedValue);
         Double debit = account.getDebits().get(0);
-        assertSame(debitedValue, debit);
+        assertEquals(debitedValue, debit);
     }
 }

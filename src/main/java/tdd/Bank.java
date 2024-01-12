@@ -16,4 +16,16 @@ public class Bank {
     public void openSavingAccount(double interestsRatio) {
         this.accounts.add(new SavingAccount(interestsRatio));
     }
+
+    public void creditAccount(BankAccount account, double creditedValue) throws LimitReachedException, InvalidValueException {
+        account.credit(creditedValue);
+    }
+
+    public void debitAccount(BankAccount account, double creditedValue) throws Exception {
+        account.debit(creditedValue);
+    }
+
+    public BankAccount getAccount(int i) {
+        return accounts.get(i);
+    } 
 }
