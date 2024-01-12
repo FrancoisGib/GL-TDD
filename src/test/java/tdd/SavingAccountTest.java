@@ -73,4 +73,12 @@ public class SavingAccountTest extends BankAccountTest {
         double computedValue = (double)computeInterests.invoke(account);
         assertEquals(interestsRatio * balance, computedValue);
     }
+
+    @Test
+    public void checkCreditAddedAfterTerm() throws Exception {
+        double balance = 1;
+        account.credit(balance);
+        account.term();
+        assertEquals(interestsRatio * balance, account.getCredit(1));
+    }
 }
