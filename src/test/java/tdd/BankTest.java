@@ -15,6 +15,6 @@ public class BankTest {
 
     @Test
     public void checkBankEmptyAtInitialization() {
-        assertSame(0, bank.getAccounts.size());
+        assertSame(0, bank.getAccounts().size());
     }
 }
