@@ -30,4 +30,11 @@ public class Bank {
             throw new AccountUnknownException();
         return accounts.get(i);
     }
+
+    public void transfer(double originAccountID, double destinationAccountID, double transferValue) throws Exception {
+        BankAccount originAccount = this.getAccount(0);
+        BankAccount destinationAccount = this.getAccount(1);
+        originAccount.debit(transferValue);
+        destinationAccount.credit(transferValue);
+    }
 }

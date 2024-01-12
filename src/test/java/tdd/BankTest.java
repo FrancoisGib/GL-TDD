@@ -133,7 +133,7 @@ public class BankTest {
         checkValueAddedIntoListWhenTransferImplementation(debits, originAccountID);
     }
 
-    private void checkValueAddedIntoListWhenTransferImplementation(List<Double> list, double accountID) {
+    private void checkValueAddedIntoListWhenTransferImplementation(List<Double> list, double accountID) throws Exception {
         double firstAccountID = 0;
         double secondAccountID = 1;
         double transferValue = 1;
