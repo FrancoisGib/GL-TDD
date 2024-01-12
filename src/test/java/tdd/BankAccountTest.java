@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 public class BankAccountTest {
     private BankAccount account;
+    
+    pro
 
     @BeforeEach
     public void init() {
@@ -21,14 +23,14 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyCreditIncrementationWhenCreditingAccount() throws InvalidValueException {
+    public void verifyCreditIncrementationWhenCreditingAccount() throws InvalidValueException, LimitReachedException {
         double creditValue = 1;
         account.credit(creditValue);
         assertEquals(creditValue, account.getCredit(0));
     }
 
     @Test
-    public void verifyDebitIncrementationWhenDebitingAccount() throws InvalidValueException {
+    public void verifyDebitIncrementationWhenDebitingAccount() throws InvalidValueException, LimitReachedException {
         double debitValue = 1;
         account.debit(debitValue);
         assertEquals(debitValue, account.getDebit(0));
@@ -47,6 +49,13 @@ public class BankAccountTest {
     }
 
     @Test
+    public void verifyReachedLimitExceptionWhenCreditExceedsLimit() throws InvalidValueException, LimitReachedException {
+        double creditValue = BankAccount.LIMIT;
+        account.credit(creditValue);
+        assertThrows(LimitReachedException.class, () -> account.credit(1));
+    }
+
+    @Test
     public void verifyInvalidValueExceptionThrowsWhenDebitingNegativeValue() {
         double debitValue = -1;
         assertThrows(InvalidValueException.class, () -> account.debit(debitValue));
@@ -59,7 +68,14 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyBalanceRightValueWhenCreditingSeveralTimes() throws InvalidValueException {
+    public void verifyReachedLimitExceptionWhenDebitExceedsLimit() throws InvalidValueException, LimitReachedException {
+        double debitValue = BankAccount.LIMIT;
+        account.debit(debitValue);
+        assertThrows(LimitReachedException.class, () -> account.debit(1));
+    }
+
+    @Test
+    public void verifyBalanceRightValueWhenCreditingSeveralTimes() throws InvalidValueException, LimitReachedException {
         double creditValue = 1;
         account.credit(creditValue);
         account.credit(creditValue);
@@ -67,7 +83,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyBalanceRightValueWhenDebitingSeveralTimes() throws InvalidValueException {
+    public void verifyBalanceRightValueWhenDebitingSeveralTimes() throws InvalidValueException, LimitReachedException {
         double debitValue = 1;
         account.debit(debitValue);
         account.debit(debitValue);
@@ -75,7 +91,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyBalanceRightValueWhenCreditingAndDebitingSeveralTimes() throws InvalidValueException {
+    public void verifyBalanceRightValueWhenCreditingAndDebitingSeveralTimes() throws InvalidValueException, LimitReachedException {
         double creditValue = 1;
         double debitValue = 1;
         account.credit(creditValue);
@@ -84,21 +100,21 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyCreditAddedIntoCreditsHistoryWhenArrayNotFull() throws InvalidValueException  {
+    public void verifyCreditAddedIntoCreditsHistoryWhenArrayNotFull() throws InvalidValueException, LimitReachedException {
         double creditValue = 1;
         account.credit(creditValue);
         assertEquals(creditValue, account.getCredit(0));
     }
 
     @Test
-    public void verifyDebitAddedIntoCreditsHistoryWhenArrayNotFull() throws InvalidValueException  {
+    public void verifyDebitAddedIntoCreditsHistoryWhenArrayNotFull() throws InvalidValueException, LimitReachedException {
         double debitValue = 1;
         account.debit(debitValue);
         assertEquals(debitValue, account.getDebit(0));
     }
 
     @Test
-    public void verifyCreditAddedIntoCreditsHistoryWhenArrayFull() throws InvalidValueException  {
+    public void verifyCreditAddedIntoCreditsHistoryWhenArrayFull() throws InvalidValueException, LimitReachedException {
         double creditValue = 1;
         account.credit(creditValue);
         account.credit(creditValue);
@@ -108,7 +124,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyDebitAddedIntoCreditsHistoryWhenArrayFull() throws InvalidValueException  {
+    public void verifyDebitAddedIntoCreditsHistoryWhenArrayFull() throws InvalidValueException, LimitReachedException {
         double debitValue = 1;
         account.debit(debitValue);
         account.debit(debitValue);
