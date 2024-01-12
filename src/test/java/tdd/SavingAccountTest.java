@@ -3,12 +3,16 @@ package tdd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.lang.reflect.Method;
+
 import org.junit.jupiter.api.Test;
 
 public class SavingAccountTest extends BankAccountTest {
+    private double interestsRatio = 0.5;
+
     @Override
     protected BankAccount createAccount() {
-        return new SavingAccount();
+        return new SavingAccount(interestsRatio);
     }
 
     @Test
@@ -58,5 +62,15 @@ public class SavingAccountTest extends BankAccountTest {
         double creditValue = 1;
         account.credit(creditValue);
         super.verifyDebitAddedIntoDebitsHistory();
+    }
+
+    @Test
+    public void checkRightValueComputedWithInterest() throws Exception {
+        double balance = 1;
+        account.credit(balance);
+        Method computeInterests = SavingAccount.class.getDeclaredMethod("computeInterests"); 
+        computeInterests.setAccessible(true); 
+        double computedValue = (double)computeInterests.invoke(account);
+        assertEquals(interestsRatio * balance, computedValue);
     }
 }
