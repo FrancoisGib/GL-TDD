@@ -29,14 +29,14 @@ public class SavingAccountTest extends BankAccountTest {
 
     @Override
     @Test
-    public void verifyDebitAddedToArrayWhenDebitingAccount() throws InvalidValueException, LimitReachedException {
+    public void verifyDebitAddedToArrayWhenDebitingAccount() throws Exception {
         account.credit(1);
         super.verifyDebitAddedToArrayWhenDebitingAccount();
     }
 
     @Override
     @Test
-    public void verifyBalanceRightValueWhenDebitingSeveralTimes() throws InvalidValueException, LimitReachedException {
+    public void verifyBalanceRightValueWhenDebitingSeveralTimes() throws Exception {
         account.credit(2);
         double debitValue = 1;
         account.debit(debitValue);
@@ -54,7 +54,7 @@ public class SavingAccountTest extends BankAccountTest {
 
     @Override
     @Test
-    public void verifyDebitAddedIntoDebitsHistory() throws InvalidValueException, LimitReachedException {
+    public void verifyDebitAddedIntoDebitsHistory() throws Exception {
         double creditValue = 1;
         account.credit(creditValue);
         super.verifyDebitAddedIntoDebitsHistory();

@@ -38,7 +38,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyDebitAddedToArrayWhenDebitingAccount() throws InvalidValueException, LimitReachedException {
+    public void verifyDebitAddedToArrayWhenDebitingAccount() throws Exception {
         double debitValue = 1;
         account.debit(debitValue);
         assertEquals(debitValue, account.getDebit(0));
@@ -89,7 +89,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyBalanceRightValueWhenDebitingSeveralTimes() throws InvalidValueException, LimitReachedException {
+    public void verifyBalanceRightValueWhenDebitingSeveralTimes() throws Exception {
         double debitValue = 1;
         account.debit(debitValue);
         account.debit(debitValue);
@@ -97,7 +97,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyBalanceRightValueWhenCreditingAndDebitingSeveralTimes() throws InvalidValueException, LimitReachedException {
+    public void verifyBalanceRightValueWhenCreditingAndDebitingSeveralTimes() throws Exception {
         double creditValue = 1;
         double debitValue = 1;
         account.credit(creditValue);
@@ -113,7 +113,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyDebitAddedIntoDebitsHistory() throws InvalidValueException, LimitReachedException {
+    public void verifyDebitAddedIntoDebitsHistory() throws Exception {
         double debitValue = 1;
         account.debit(debitValue);
         assertEquals(debitValue, account.getDebit(0));

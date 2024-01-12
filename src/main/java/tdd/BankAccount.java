@@ -19,7 +19,7 @@ public class BankAccount {
         this.credits.add(creditValue);
     }
 
-    public void debit(double debitValue) throws InvalidValueException, LimitReachedException {
+    public void debit(double debitValue) throws Exception {
         this.handleAddedValue(this.debits, debitValue);
         this.debits.add(debitValue);
     }
