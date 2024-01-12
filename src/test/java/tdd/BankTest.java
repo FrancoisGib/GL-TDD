@@ -3,6 +3,8 @@ package tdd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -77,12 +79,12 @@ public class BankTest {
     }
 
     @Test
-    public void checkAccountUnknownExceptionThrownWhenGettingAnAccountWithAWrongID() {
+    public void checkAccountUnknownExceptionThrowWhenGettingAnAccountWithAWrongID() {
         assertThrows(AccountUnknownException.class, () -> bank.getAccount(0));
     }
 
     @Test
-    public void checkAccountUnknownExceptionThrownWhenTransferingToAnUnknownAccount() {
+    public void checkAccountUnknownExceptionThrowWhenTransferingToAnUnknownAccount() {
         bank.openBankAccount();
         double firstAccountID = 0;
         double unknownAccountID = 1;
@@ -90,7 +92,7 @@ public class BankTest {
     }
 
     @Test
-    public void checkAccountUnknownExceptionThrownWhenTransferingFromAnUnknownAccount() {
+    public void checkAccountUnknownExceptionThrowWhenTransferingFromAnUnknownAccount() {
         bank.openBankAccount();
         double firstAccountID = 0;
         double unknownAccountID = 1;
@@ -100,5 +102,42 @@ public class BankTest {
     private void checkAccountUnknownExceptionThrownWhenTransferingImplementation(double firstAccountID, double secondAccountID) {
         double transferValue = 1;
         assertThrows(AccountUnknownException.class, () -> bank.transfer(firstAccountID, secondAccountID, transferValue));
+    }
+
+    @Test
+    public void checkDebitSuperiorToBalanceExceptionThrowWhenTransferringFromASavingAccountWithBalanceAtZero() {
+        double interestsRatio = 0.5;
+        bank.openSavingAccount(interestsRatio);
+        bank.openBankAccount();
+        double firstAccountID = 0;
+        double secondAccountID = 1;
+        double transferValue = 1;
+        assertThrows(DebitSuperiorToBalanceException.class, () -> bank.transfer(firstAccountID, secondAccountID, transferValue));
+    }
+
+    @Test
+    public void checkCreditAddedInDestinationAccountCreditsWhenTransfer() throws Exception {
+        bank.openBankAccount();
+        bank.openBankAccount();
+        double destinationAccountID = 1;
+        List<Double> debits = bank.getAccount(1).getCredits();
+        checkValueAddedIntoListWhenTransferImplementation(debits, destinationAccountID);
+    }
+
+    @Test
+    public void checkDebitAddedInOriginAccountDebitsWhenTransfer() throws Exception {
+        bank.openBankAccount();
+        bank.openBankAccount();
+        double originAccountID = 0;
+        List<Double> debits = bank.getAccount(0).getDebits();
+        checkValueAddedIntoListWhenTransferImplementation(debits, originAccountID);
+    }
+
+    private void checkValueAddedIntoListWhenTransferImplementation(List<Double> list, double accountID) {
+        double firstAccountID = 0;
+        double secondAccountID = 1;
+        double transferValue = 1;
+        bank.transfer(firstAccountID, secondAccountID, transferValue);
+        assertEquals(1, list.get(0));
     }
 }
