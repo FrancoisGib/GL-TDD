@@ -25,7 +25,9 @@ public class Bank {
         account.debit(creditedValue);
     }
 
-    public BankAccount getAccount(int i) {
+    public BankAccount getAccount(int i) throws AccountUnknownException {
+        if (accounts.size() <= i)
+            throw new AccountUnknownException();
         return accounts.get(i);
     } 
 }

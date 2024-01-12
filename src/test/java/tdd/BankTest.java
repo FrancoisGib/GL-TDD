@@ -80,4 +80,25 @@ public class BankTest {
     public void checkAccountUnknownExceptionThrownWhenGettingAnAccountWithAWrongID() {
         assertThrows(AccountUnknownException.class, () -> bank.getAccount(0));
     }
+
+    @Test
+    public void checkAccountUnknownExceptionThrownWhenTransferingToAnUnknownAccount() {
+        bank.openBankAccount();
+        double firstAccountID = 0;
+        double unknownAccountID = 1;
+        checkAccountUnknownExceptionThrownWhenTransferingImplementation(firstAccountID, unknownAccountID);
+    }
+
+    @Test
+    public void checkAccountUnknownExceptionThrownWhenTransferingFromAnUnknownAccount() {
+        bank.openBankAccount();
+        double firstAccountID = 0;
+        double unknownAccountID = 1;
+        checkAccountUnknownExceptionThrownWhenTransferingImplementation(unknownAccountID, firstAccountID);
+    }
+
+    private void checkAccountUnknownExceptionThrownWhenTransferingImplementation(double firstAccountID, double secondAccountID) {
+        double transferValue = 1;
+        assertThrows(AccountUnknownException.class, () -> bank.transfer(firstAccountID, secondAccountID, transferValue));
+    }
 }
