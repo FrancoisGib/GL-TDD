@@ -7,11 +7,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class BankAccountTest {
-    private BankAccount account;
+    protected BankAccount account;
+
+    protected BankAccount createAccount() {
+        return new BankAccount();
+    }
 
     @BeforeEach
     public void init() {
-        this.account = new BankAccount();
+        this.account = this.createAccount();
     }
 
     @Test
