@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 
 public class BankAccountTest {
     private BankAccount account;
-    
-    pro
 
     @BeforeEach
     public void init() {
