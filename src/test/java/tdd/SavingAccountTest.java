@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class SavingAccountTest extends BankAccountTest {
+    @Override
     protected BankAccount createAccount() {
         return new SavingAccount();
     }
@@ -24,5 +25,38 @@ public class SavingAccountTest extends BankAccountTest {
         double debitedValue = 1;
         account.debit(debitedValue);
         assertEquals(0, account.getDebits().size());
+    }
+
+    @Override
+    @Test
+    public void verifyDebitAddedToArrayWhenDebitingAccount() throws InvalidValueException, LimitReachedException {
+        account.credit(1);
+        super.verifyDebitAddedToArrayWhenDebitingAccount();
+    }
+
+    @Override
+    @Test
+    public void verifyBalanceRightValueWhenDebitingSeveralTimes() throws InvalidValueException, LimitReachedException {
+        account.credit(2);
+        double debitValue = 1;
+        account.debit(debitValue);
+        account.debit(debitValue);
+        assertEquals(0, account.computeBalance());
+    }
+
+    @Override
+    @Test
+    public void verifyReachedLimitExceptionWhenDebitExceedsLimit() throws InvalidValueException, LimitReachedException {
+        account.credit(BankAccount.LIMIT);
+        account.credit(1);
+        super.verifyReachedLimitExceptionWhenDebitExceedsLimit();
+    }
+
+    @Override
+    @Test
+    public void verifyDebitAddedIntoDebitsHistory() throws InvalidValueException, LimitReachedException {
+        double creditValue = 1;
+        account.credit(creditValue);
+        super.verifyDebitAddedIntoDebitsHistory();
     }
 }

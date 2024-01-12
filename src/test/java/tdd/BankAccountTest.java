@@ -31,14 +31,14 @@ public class BankAccountTest {
     }
 
     @Test
-    public void verifyCreditIncrementationWhenCreditingAccount() throws InvalidValueException, LimitReachedException {
+    public void verifyCreditAddedToArrayWhenCreditingAccount() throws InvalidValueException, LimitReachedException {
         double creditValue = 1;
         account.credit(creditValue);
         assertEquals(creditValue, account.getCredit(0));
     }
 
     @Test
-    public void verifyDebitIncrementationWhenDebitingAccount() throws InvalidValueException, LimitReachedException {
+    public void verifyDebitAddedToArrayWhenDebitingAccount() throws InvalidValueException, LimitReachedException {
         double debitValue = 1;
         account.debit(debitValue);
         assertEquals(debitValue, account.getDebit(0));
@@ -58,9 +58,8 @@ public class BankAccountTest {
 
     @Test
     public void verifyReachedLimitExceptionWhenCreditExceedsLimit() throws InvalidValueException, LimitReachedException {
-        double creditValue = BankAccount.LIMIT;
-        account.credit(creditValue);
-        assertThrows(LimitReachedException.class, () -> account.credit(1));
+        double creditValue = BankAccount.LIMIT + 1;
+        assertThrows(LimitReachedException.class, () -> account.credit(creditValue));
     }
 
     @Test
@@ -77,9 +76,8 @@ public class BankAccountTest {
 
     @Test
     public void verifyReachedLimitExceptionWhenDebitExceedsLimit() throws InvalidValueException, LimitReachedException {
-        double debitValue = BankAccount.LIMIT;
-        account.debit(debitValue);
-        assertThrows(LimitReachedException.class, () -> account.debit(1));
+        double debitValue = BankAccount.LIMIT + 1;
+        assertThrows(LimitReachedException.class, () -> account.debit(debitValue));
     }
 
     @Test

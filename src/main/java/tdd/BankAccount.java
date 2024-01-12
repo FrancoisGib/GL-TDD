@@ -7,10 +7,10 @@ import lombok.Getter;
 
 public class BankAccount {
     @Getter
-    private List<Double> credits = new ArrayList<>();
+    protected List<Double> credits = new ArrayList<>();
 
     @Getter
-    private List<Double> debits = new ArrayList<>();
+    protected List<Double> debits = new ArrayList<>();
 
     public static double LIMIT = 100000;
 
@@ -27,7 +27,7 @@ public class BankAccount {
     private void handleAddedValue(List<Double> array, double addedValue) throws InvalidValueException, LimitReachedException {
         if (addedValue <= 0)
             throw new InvalidValueException();
-        else if (sum(array) + addedValue > LIMIT)
+        else if (addedValue > LIMIT)
             throw new LimitReachedException();
     }
 
