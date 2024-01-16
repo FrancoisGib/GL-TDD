@@ -15,16 +15,16 @@ public class BankAccount {
     public static double LIMIT = 100000;
 
     public void credit(double creditValue) throws InvalidValueException, LimitReachedException {
-        this.addValueToArray(this.credits, creditValue);
+        this.checkValue(creditValue);
         this.credits.add(creditValue);
     }
 
     public void debit(double debitValue) throws Exception {
-        this.addValueToArray(this.debits, debitValue);
+        this.checkValue(debitValue);
         this.debits.add(debitValue);
     }
 
-    private void addValueToArray(List<Double> array, double addedValue) throws InvalidValueException, LimitReachedException {
+    private void checkValue(double addedValue) throws InvalidValueException, LimitReachedException {
         if (addedValue <= 0)
             throw new InvalidValueException();
         else if (addedValue > LIMIT)
